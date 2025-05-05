@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Investment Simulations</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <h1>Investment Simulation</h1>
@@ -58,15 +59,38 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        var balance = 150000;
+  var year = 0;
 
+  while (balance < 1000000) {
+    year = year + 1;
+    balance = balance * 1.08;
+    console.log(year, balance);
+  }
 
+  console.log("DONE!");
+  console.log("Years:", year);
+  console.log("Final Balance:", balance.toFixed(2));
 
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        var balance = 150000;
+  var year = 0;
+  var rateGenerator = d3.randomNormal(0.08, 0.15); // mean = 8%, std dev = 15%
 
+  while (balance < 1000000) {
+    var rate = rateGenerator();
+    year = year + 1;
+    balance = balance * (1 + rate);
+    console.log("Year", year, "Rate:", (rate * 100).toFixed(2) + "%", "Balance:", balance.toFixed(2));
+  }
+
+  console.log("DONE!");
+  console.log("Years:", year);
+  console.log("Final Balance:", balance.toFixed(2));
 
 
 
