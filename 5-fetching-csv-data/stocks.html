@@ -83,6 +83,10 @@
             return `${(percentage * 100).toFixed(2)}%`
         }
 
+        //var symbol = prompt("Please enter a stock symbol  (one of: [AAPL, GOOGL, MSFT, NFLX, NVDA, SPOT])")
+        //if (symbol !== null) {
+        //    console.log("SYMBOL:", symbol);
+        //}
 
         var symbol = "NFLX" // one of: [AAPL, GOOGL, MSFT, NFLX, NVDA, SPOT]
         var filename = `daily_adjusted_${symbol}.csv`
@@ -94,6 +98,18 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            var earliest = data[data.length - 1]
+            var latest = data[0]
+
+            var earliestClose =  parseFloat(earliest.adjusted_close)
+            var latestClose =  parseFloat(latest.adjusted_close)
+
+            console.log("DAYS:", data.length)
+            console.log("... EARLIEST:", earliest.timestamp, formatUSD(earliestClose))
+            console.log("... LATEST:", latest.timestamp, formatUSD(latestClose))
+
+            var pctChange = (latestClose - earliestClose) / earliestClose
+            console.log("PERCENT CHANGE:", formatPct(pctChange))
 
 
 
@@ -101,9 +117,10 @@
             console.log("---------------------")
             console.log("PART 2...")
 
-
-
-
+            document.getElementById("display-symbol").textContent = symbol
+            document.getElementById("display-earliest").textContent = `${earliest.timestamp} (${formatUSD(earliestClose)})`
+            document.getElementById("display-latest").textContent = `${latest.timestamp} (${formatUSD(latestClose)})`
+            document.getElementById("display-pct-change").textContent = formatPct(pctChange)
 
 
             }).catch(function(error) {
