@@ -83,6 +83,14 @@
         }
 
 
+        // ELEMENT REFERENCES
+        //var selectRegion = document.getElementById("select-region")
+        var displayRegion = document.getElementById("display-region")
+        var displayType = document.getElementById("display-type")
+        var displayExchanges = document.getElementById("display-exchanges")
+        var displayOpen = document.getElementById("display-open")
+        var displayClose = document.getElementById("display-close")
+        var displayStatus = document.getElementById("display-status")
 
 
         var requestUrl = `https://www.alphavantage.co/query?function=MARKET_STATUS&apikey=${apiKey}`
@@ -92,13 +100,46 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("MARKETS:", data.markets.length)
 
+            // FILTER EQUITY MARKETS
+
+            var equityMarkets = data.markets.filter(function(market){
+                return market.market_type == "Equity"
+            })
+
+            console.log("EQUITY MARKETS:", equityMarkets.length)
+
+            equityMarkets.forEach(market => {
+                console.log("...", `${market.region} (${market.market_type})`)
+            })
+
+            // FIND REGION
+
+            var region = "United States"
+            console.log(region)
+
+            var market = equityMarkets.find(function(market){
+                return market.region == region
+            })
+
+            console.log(market.market_type)
+            console.log(market.primary_exchanges)
+            console.log(market.local_open)
+            console.log(market.local_close)
+            console.log(market.current_status.toUpperCase())
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            displayRegion.innerText = market.region
+            displayType.innerText = market.market_type
+            displayExchanges.innerText = market.primary_exchanges
+            displayOpen.innerText = market.local_open
+            displayClose.innerText = market.local_close
+            displayStatus.innerText = market.current_status.toUpperCase()
 
 
 
