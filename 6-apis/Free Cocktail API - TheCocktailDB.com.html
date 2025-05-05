@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://www.thecocktaildb.com/api.php -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Instructions for the Free Cocktail API in JSON format">
+	<meta name="author" content="TheCocktailDB.com">
+	<title>Free Cocktail API - TheCocktailDB.com</title>
+	<!-- CSS Includes -->
+	<link href="./Free Cocktail API - TheCocktailDB.com_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./Free Cocktail API - TheCocktailDB.com_files/main.css" rel="stylesheet">
+	<!-- Favicon Includes-->
+	<link rel="apple-touch-icon" sizes="180x180" href="https://www.thecocktaildb.com/images/icons/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://www.thecocktaildb.com/images/icons/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://www.thecocktaildb.com/images/icons/favicon/favicon-16x16.png">
+	<link rel="manifest" href="https://www.thecocktaildb.com/images/icons/favicon/site.webmanifest">
+	<link rel="mask-icon" href="https://www.thecocktaildb.com/images/icons/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="homepage">
+
+	<!-- Navbar -->
+
+<nav class="navbar navbar-expand-sm navbar-inverse navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="https://www.thecocktaildb.com/"><img src="./Free Cocktail API - TheCocktailDB.com_files/logo.png" alt="TheCocktailDB Website Logo" title="TheCocktailDB logo" width="294" height="75"></a>
+        <!-- Burger Menu -->
+        <button class="navbar-toggler collapsed navbar-inverse" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar" aria-expanded="false">
+            <span class="navbar-toggler-icon white"></span>
+        </button>
+        <!-- Large Menu -->
+        <div class="navbar-collapse collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <!-- Browse Dropdown -->
+                <li class="active"><a href="https://www.thecocktaildb.com/">Home</a></li>
+                <li><a href="https://www.thecocktaildb.com/api.php">API</a></li>
+
+                <!-- Search Box -->
+                <li class="nav-item">
+                    <div class="search">
+                        <form role="form" action="https://www.thecocktaildb.com/browse/search/">
+                            <input type="text" name="s" class="search-form" autocomplete="off" placeholder=" Search">
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+	<div class="container">
+
+	</div>
+
+	<section id="feature">
+
+		<div class="center">
+
+			<b><img src="./Free Cocktail API - TheCocktailDB.com_files/thumb_up.gif"> Free Cocktail API Support</b><br>
+			The API and site will always remain free to access at its basic level.<br><br>
+
+			<b><img src="./Free Cocktail API - TheCocktailDB.com_files/api.png"> Test API Key</b><br>
+			You can use the test API key "1" during development of your app or for educational use (see test links below)<br>
+			However you must sign up to <a href="https://www.paypal.com/ncp/payment/TUP27M2HVA9D2">Premium API</a> for a small one-off fee
+			if you want a production API key if releasing publicly on an appstore.<br>
+
+			<br><b><img src="./Free Cocktail API - TheCocktailDB.com_files/up_arrow.png"> API Upgrade</b><br>
+			All Premium API subscribers have access to the beta version of the API which allows mutiple ingredient filters. <br>
+			Supporters also get special lookups for Popular and Recent Cocktails. You can also list the full database rather than limited to 100 items.<br>
+			You also get access to the latest and random image API methods.<br>
+
+			<a href="https://www.paypal.com/ncp/payment/TUP27M2HVA9D2">
+			<svg width="152" height="76" viewBox="0 0 152 34" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<g transform="translate(0 0)">
+					<rect width="140" height="36" rx="7" transform="translate(0 0)" fill="#fec43a" stroke="#e9b740" stroke-width="1"></rect><text transform="translate(18 23)" fill="white" font-size="14">
+						<tspan x="-2" y="0">Go Premium ($10)</tspan>
+					</text>
+				</g>
+			</svg>
+			</a>
+			<br><b><img src="./Free Cocktail API - TheCocktailDB.com_files/email.png"> Contact</b><br> Email: thedatadb@gmail.com<br><br><h1>V1 API</h1><img src="./Free Cocktail API - TheCocktailDB.com_files/code.png"> <b>API Methods using the developer test key '1' in the URL</b><br><br>
+
+		<i>Search cocktail by name</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita</font><br>
+		<br>
+		<i>List all cocktails by first letter</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/search.php?f=a</font><br>
+<br>
+		<i>Search ingredient by name</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka</font><br>	
+<br>
+		<i>Lookup full cocktail details by id</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007</font><br>
+<br>
+		<i>Lookup ingredient by ID</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=552</font><br>
+<br>
+		<i>Lookup a random cocktail</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/random.php</font><br>
+		<br>
+		<i>Lookup a selection of 10 random cocktails</i> <a href="https://www.paypal.com/ncp/payment/TUP27M2HVA9D2">*Premium API only</a><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/randomselection.php</font><br>
+		<br>
+		<i>List Popular cocktails</i> <a href="https://www.paypal.com/ncp/payment/TUP27M2HVA9D2">*Premium API only</a><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/popular.php</font><br>
+		<br>
+		<i>List most latest cocktails</i> <a href="https://www.paypal.com/ncp/payment/TUP27M2HVA9D2">*Premium API only</a><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/latest.php</font><br>
+<br>
+		<i>Search by ingredient</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka</font><br>
+		<br>
+		<i>Filter by multi-ingredient</i> <a href="https://www.paypal.com/ncp/payment/TUP27M2HVA9D2">*Premium API only</a><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?i=Dry_Vermouth,Gin,Anis</font> 
+		<br>
+<br>
+		<i>Filter by alcoholic</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic</font><br>
+<br>
+		<i>Filter by Category</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail</font><br>
+<br>
+		<i>Filter by Glass</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/filter.php?g=Champagne_flute</font><br>
+<br>
+		<i>List the categories, glasses, ingredients or alcoholic filters</i><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/list.php?c=list</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/list.php?g=list</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/list.php?i=list</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/api/json/v1/1/list.php?a=list</font><br><br>
+<br>
+		<img src="./Free Cocktail API - TheCocktailDB.com_files/image2.png"> <b>Images</b><br>
+		Drink thumbnails <br>Add <b>/small</b> to the end of the cocktail image URL<br>
+		<font color="#EC8AE7">/images/media/drink/vrwquq1478252802.jpg/small (200x200 px)</font><br>
+		<font color="#EC8AE7">/images/media/drink/vrwquq1478252802.jpg/medium (350x350 px)</font><br>
+		<font color="#EC8AE7">/images/media/drink/vrwquq1478252802.jpg/large (500x500 px)</font><br>
+		<img src="./Free Cocktail API - TheCocktailDB.com_files/small"><br><br>
+
+		Ingredient Thumbnails<br>
+		<font color="#EC8AE7">www.thecocktaildb.com/images/ingredients/gin-small.png<br>(100x100 px)</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/images/ingredients/gin-medium.png<br>(350x350 px)</font><br>
+		<font color="#EC8AE7">www.thecocktaildb.com/images/ingredients/gin.png<br>(700x700 px)</font>
+		<br>
+		
+		<img src="./Free Cocktail API - TheCocktailDB.com_files/gin-small.png" width="100" height="100">
+		<img src="./Free Cocktail API - TheCocktailDB.com_files/gin-medium.png" width="200" height="200">
+		<img src="./Free Cocktail API - TheCocktailDB.com_files/gin.png" width="350" height="350">
+		
+				</div>
+
+		<!--/.container-->
+	</section><!--/#feature-->
+
+	<footer id="footer" class="midnight-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                © 2025 TheCocktailDB. <br>Proudly built in the UK <img src="./Free Cocktail API - TheCocktailDB.com_files/gb.png" alt="English Language Flag" title="British Flag">
+            </div>
+            <div class="col-sm-6">
+                <center>
+                    Socials:
+                    <a href="https://www.facebook.com/TheDataDB/"><img src="./Free Cocktail API - TheCocktailDB.com_files/facebook_icon.png" alt="Facebook logo" title="Facebook Social Media"></a>
+                    <a href="https://twitter.com/TheAudioDB"><img src="./Free Cocktail API - TheCocktailDB.com_files/twitter_icon.png" alt="X logo" title="X Social Media"></a>
+                    <a href="https://discord.com/invite/pFvgaXV"><img src="./Free Cocktail API - TheCocktailDB.com_files/discord_icon.png" alt="Discord Chat logo" title="Discord Social Media"></a><br><br>
+                    <a href="https://www.thesportsdb.com/" target="_blank"><img src="./Free Cocktail API - TheCocktailDB.com_files/logo-tsdb.png" alt="TheSportsDB logo" title="TheSportsDB"></a>
+                    <a href="https://www.theaudiodb.com/" target="_blank"><img src="./Free Cocktail API - TheCocktailDB.com_files/logo-tadb.png" alt="TheAudioDB logo" title="TheAudioDB"></a>
+                    <a href="https://www.themealdb.com/" target="_blank"><img src="./Free Cocktail API - TheCocktailDB.com_files/logo-tmdb.png" alt="TheMealDB logo" title="TheMealDB"></a>
+                </center>
+            </div>
+            <div class="col-sm-3">
+                <ul class="pull-right">
+                    <li><a href="https://www.thecocktaildb.com/missing.php">Missing</a></li>
+                    <li><a href="https://www.thecocktaildb.com/about.php">About</a></li>
+                    <li><a href="https://www.thecocktaildb.com/faq.php">Faq</a></li>
+                    <li><a href="https://www.thecocktaildb.com/contact.php">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer><!--/#footer--><script src="./Free Cocktail API - TheCocktailDB.com_files/bootstrap.bundle.min.js"></script><script defer="" src="./Free Cocktail API - TheCocktailDB.com_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;93b283ac0c11222b&quot;,&quot;version&quot;:&quot;2025.4.0-1-g37f21b1&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;e3db36df987945a696a3b7cfdfba9eaa&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}}}" crossorigin="anonymous"></script>
+
+
+</body></html>
