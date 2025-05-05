@@ -83,15 +83,49 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("PRODUCTS:", data.length)
+
+            data.forEach(product => {
+                console.log("...", product.name, formatUSD(parseFloat(product.price)))
+            })
 
 
+            var departments = []
+            data.forEach(product => {
+                if (!departments.includes(product.department)) {
+                    departments.push(product.department)
+                }
+            })
+            console.log("DEPARTMENTS:", departments.length)
+
+            departments.forEach(function(deptName){
+                console.log("...", deptName.toUpperCase())
+            })
+
+
+            var beverages = data.filter(product => product.department == "beverages")
+            console.log("BEVERAGES:", beverages.length)
+
+            var bevPrices = beverages.map(product => parseFloat(product.price))
+            var avgPrice = d3.mean(bevPrices)
+            console.log("... AVG PRICE:", formatUSD(avgPrice))
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            data.sort(function(a, b) {
+                return d3.ascending(a.name, b.name)
+            })
 
+            var ul = document.getElementById("display-groceries")
+            data.forEach(product => {
+                var li = document.createElement("li")
+                li.textContent = `${product.name} (${formatUSD(parseFloat(product.price))})`
+
+                ul.appendChild(li)
+            })
 
 
 
