@@ -65,11 +65,29 @@
         console.log("---------------------")
         console.log("PART 1...")
         
+        var item1 = 10.25;
+var item2 = 14.99;
+var item3 = 7.5;
+
+var subtotal = item1 + item2 + item3;
+var taxRate = 0.065;
+var taxAmount = subtotal * taxRate;
+var total = subtotal + taxAmount;
+
+console.log("Subtotal: $" + subtotal.toFixed(2));
+console.log("Tax: $" + taxAmount.toFixed(2));
+console.log("Total: $" + total.toFixed(2));
 
 
 
         console.log("---------------------")
         console.log("PART 2...")
+
+        function formatPercentage(rate) {
+  return (rate * 100).toFixed(2) + "%";
+}
+
+console.log("Tax Rate:", formatPercentage(taxRate));
 
 
 
@@ -77,6 +95,15 @@
 
         console.log("---------------------")
         console.log("PART 3...")
+
+        console.log("--------------------");
+console.log("PART 3...");
+
+console.log("RECEIPT SUMMARY");
+console.log("Subtotal:", "$" + subtotal.toFixed(2));
+console.log("Tax Rate:", formatPercentage(taxRate));
+console.log("Tax:", "$" + taxAmount.toFixed(2));
+console.log("Total:", "$" + total.toFixed(2));
 
 
 
