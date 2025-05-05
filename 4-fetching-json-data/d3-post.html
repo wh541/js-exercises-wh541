@@ -1,127 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>D3 POST Request Example</title>
-    <!-- Include D3 from a CDN -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-  </head>
-  <body>
-    <h1>D3 POST Request Example</h1>
-    <script>
+<head>
+  <meta charset="UTF-8" />
+  <title>D3 POST + Weather Forecast Example</title>
+  <!-- Include D3 from CDN -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
 
-      // URL of the testing endpoint.
-      // httpbin.org is useful since it returns our data as part of the response.
-      const url = "https://httpbin.org/post";
+  <h1>D3 POST Request Example</h1>
 
+  <script>
+    // ---------------------------
+    // D3 POST Request
+    // ---------------------------
+    const postUrl = "https://httpbin.org/post";
+    const postData = {
+      name: "Waldo Ma",
+      email: "waldo@example.com",
+      age: 75
+    };
 
-      // Data to be sent in the POST request.
-      const postData = {
-        name: "Waldo Ma",
-        email: "waldo@example.com",
-        age: 75
-      }
-
-      // Use d3.json to send the POST request.
-      // Note: d3.json accepts an options object similar to the Fetch API.
-      d3.json(url, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(postData)
-      })
-      .then(response => {
-        // Log the response so you can verify that the server received the data.
-        console.log("SUCCESS!")
-        console.log("Response:", response)
-        // work with the response here
-
-        function renderForecast(dateString, periods) {
-  document.getElementById("display-date").innerText = dateString;
-
-  const table = document.getElementById("forecast-table");
-  periods.forEach(p => {
-    const row = document.createElement("tr");
-
-    const periodCell = document.createElement("td");
-    periodCell.innerText = p.name;
-
-    const tempCell = document.createElement("td");
-    tempCell.innerText = `${p.temperature}°${p.temperatureUnit}`;
-
-    const forecastCell = document.createElement("td");
-    forecastCell.innerText = p.shortForecast || p.detailedForecast;
-
-    const iconCell = document.createElement("td");
-    const img = document.createElement("img");
-    img.src = p.icon;
-    img.alt = p.shortForecast;
-    img.style.width = "50px";
-    iconCell.appendChild(img);
-
-    row.appendChild(periodCell);
-    row.appendChild(tempCell);
-    row.appendChild(forecastCell);
-    row.appendChild(iconCell);
-    table.appendChild(row);
-  });
-}
-
-
-      })
-      .catch(error => {
-        console.error("Error in POST request:", error)
-      })
-
-const url = "https://YOUR_HOST/weather-data.json"; // replace with real URL
-
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    console.log("PART 1...");
-    
-    // A. Display date generated
-    console.log("A) Generated:", data.properties.updated);
-
-    // B. Number of forecast periods
-    const periods = data.properties.periods;
-    console.log("B) Total periods:", periods.length);
-
-    // C. Filter to daytime only
-    const daytimePeriods = periods.filter(p => p.isDaytime === true);
-    console.log("C) Daytime periods:", daytimePeriods.length);
-
-    // D. Display each daytime forecast
-    console.log("D) 7-Day Forecast:");
-    daytimePeriods.forEach(p => {
-      console.log(`${p.name}: ${p.temperature}°${p.temperatureUnit}, ${p.shortForecast}`);
+    d3.json(postUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(postData)
+    })
+    .then(response => {
+      console.log("SUCCESS!");
+      console.log("POST Response:", response);
+    })
+    .catch(error => {
+      console.error("Error in POST request:", error);
     });
 
-    // Save for Part 2
-    renderForecast(data.properties.updated, daytimePeriods);
-  })
-  .catch(error => {
-    console.error("Failed to fetch weather data:", error);
-  });
+    // ---------------------------
+    // Weather Forecast (Part 1 & 2)
+    // ---------------------------
+    const weatherUrl = "https://raw.githubusercontent.com/prof-rossetti/internet-technologies/refs/heads/main/data/weather-data.json";
 
-  
+    fetch(weatherUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log("---------------------");
+        console.log("PART 1...");
 
-    </script>
-<h1>7-Day Weather Forecast</h1>
-<p>Data last updated: <span id="display-date">Loading...</span></p>
+        // A. Display date generated
+        console.log("A) Generated:", data.properties.updated);
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Period</th>
-      <th>Temperature</th>
-      <th>Forecast</th>
-      <th>Icon</th>
-    </tr>
-  </thead>
-  <tbody id="forecast-table">
-    <!-- rows will be added here -->
-  </tbody>
-</table>
+        // B. Number of forecast periods
+        const periods = data.properties.periods;
+        console.log("B) Total periods:", periods.length);
 
-  </body>
-</html>
+        // C. Filter to daytime only
+        const daytimePeriods = periods.filter(p => p.isDaytime === true);
+        console.log("C) Daytime periods:", daytimePeriods.length);
+
+        // D. Display each daytime forecast
+        console.log("D) 7-Day Forecast:");
+        daytimePeriods.forEach(p => {
+          console.log(`${p.name}: ${p.temperature}°${p.temperatureUnit}, ${p.shortForecast || p.detailedForecast}`);
+        });
+
+        console.log("---------------------");
+        console.log("PART 2...");
+
+        renderForecast(data.properties.updated, daytimePeriods);
+      })
+      .catch(error => {
+        console.error("Failed to fetch weather data:", error);
+      });
+
+    // ---------------------------
+    // Render Forecast to Table
+    // ---------------------------
+    function renderForecast(dateString, periods) {
+      document.getElementById("display-date").innerText = dateString;
+
+      const table = document.getElementById("forecast-table");
+      periods.forEach(p => {
+        const row = document.createElement("tr");
+
+        const periodCell = document.createElement("td");
+        periodCell.innerText = p.name;
+        row.appendChild(periodCell);
+
+        const tempCell = document.createElement("td");
+        tempCell.innerText = `${p.temperature}°${p.temperatureUnit}`;
+        row.appendChild(tempCell);
+
+        const forecastCell = document.createElement("td");
+        forecastCell.innerText = p.shortForecast || p.detailedForecast;
+        row.appendChild(forecastCell);
+
+        const iconCell = document.createElement("td");
+        const img = document.createElement("img");
+        img.src = p.icon;
+        img.alt =
