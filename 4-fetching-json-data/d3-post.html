@@ -35,12 +35,93 @@
         console.log("Response:", response)
         // work with the response here
 
+        function renderForecast(dateString, periods) {
+  document.getElementById("display-date").innerText = dateString;
+
+  const table = document.getElementById("forecast-table");
+  periods.forEach(p => {
+    const row = document.createElement("tr");
+
+    const periodCell = document.createElement("td");
+    periodCell.innerText = p.name;
+
+    const tempCell = document.createElement("td");
+    tempCell.innerText = `${p.temperature}°${p.temperatureUnit}`;
+
+    const forecastCell = document.createElement("td");
+    forecastCell.innerText = p.shortForecast || p.detailedForecast;
+
+    const iconCell = document.createElement("td");
+    const img = document.createElement("img");
+    img.src = p.icon;
+    img.alt = p.shortForecast;
+    img.style.width = "50px";
+    iconCell.appendChild(img);
+
+    row.appendChild(periodCell);
+    row.appendChild(tempCell);
+    row.appendChild(forecastCell);
+    row.appendChild(iconCell);
+    table.appendChild(row);
+  });
+}
 
 
       })
       .catch(error => {
         console.error("Error in POST request:", error)
       })
+
+const url = "https://YOUR_HOST/weather-data.json"; // replace with real URL
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    console.log("PART 1...");
+    
+    // A. Display date generated
+    console.log("A) Generated:", data.properties.updated);
+
+    // B. Number of forecast periods
+    const periods = data.properties.periods;
+    console.log("B) Total periods:", periods.length);
+
+    // C. Filter to daytime only
+    const daytimePeriods = periods.filter(p => p.isDaytime === true);
+    console.log("C) Daytime periods:", daytimePeriods.length);
+
+    // D. Display each daytime forecast
+    console.log("D) 7-Day Forecast:");
+    daytimePeriods.forEach(p => {
+      console.log(`${p.name}: ${p.temperature}°${p.temperatureUnit}, ${p.shortForecast}`);
+    });
+
+    // Save for Part 2
+    renderForecast(data.properties.updated, daytimePeriods);
+  })
+  .catch(error => {
+    console.error("Failed to fetch weather data:", error);
+  });
+
+  
+
     </script>
+<h1>7-Day Weather Forecast</h1>
+<p>Data last updated: <span id="display-date">Loading...</span></p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Period</th>
+      <th>Temperature</th>
+      <th>Forecast</th>
+      <th>Icon</th>
+    </tr>
+  </thead>
+  <tbody id="forecast-table">
+    <!-- rows will be added here -->
+  </tbody>
+</table>
+
   </body>
 </html>
