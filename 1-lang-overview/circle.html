@@ -72,6 +72,21 @@
   console.log("Radius:", radius);
   console.log("Area:", area);
 
+  function calculateCircleArea(radius) {
+    return Math.PI * radius ** 2;
+  }
+
+  // Handle button click
+  const button = document.querySelector("button");
+  const input = document.querySelector("input");
+  const areaSpan = document.querySelector("span");
+
+  button.addEventListener("click", function () {
+    const radius = Number(input.value); // Convert string to number
+    const area = calculateCircleArea(radius);
+    areaSpan.textContent = area.toFixed(2); // Show only 2 decimal places
+  });
+
     </script>
 </body>
 </html>
