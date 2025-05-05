@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Harry Potter Movies (JSON)</title>
 </head>
 <body>
+
   <h1>Harry Potter Movies (JSON)</h1>
   <a href="../index.html">Home</a>
 
   <h2>Dataset Information</h2>
-  <p>
-    For this exercise, we will use a JSON file called
-    <a href="https://raw.githubusercontent.com/prof-rossetti/internet-technologies/refs/heads/main/data/hp-movies.json">"hp-movies.json"</a>.
+  <p>For this exercise, we will use a JSON file called 
+    <a href="hp-movies.json">"hp-movies.json"</a>. 
     The JSON file contains information about Harry Potter movies.
   </p>
 
@@ -21,83 +21,77 @@
 
   <h2>Part 2</h2>
   <p>Select a movie to view more info:</p>
-
   <select id="movie-selector">
     <option value="">-- Choose a Movie --</option>
   </select>
 
   <p>Title: <span id="display-title">TODO</span></p>
   <p>Year: <span id="display-year">TODO</span></p>
-  <p>Rating: <span id="display-rating">X</span> / 10</p>
-  <p>
-    Thumbnail Image:<br>
+  <p>Rating: <span id="display-rating">X / 10</span></p>
+  <p>Thumbnail Image:<br>
     <img id="display-image" src="" alt="Movie Poster" style="width: 120px;">
   </p>
 
   <script>
-    const requestUrl = "https://raw.githubusercontent.com/prof-rossetti/internet-technologies/refs/heads/main/data/hp-movies.json";
-
-    fetch(requestUrl)
+    fetch("hp-movies.json")
       .then(response => response.json())
-      .then(function(movies) {
-        console.log("DATA", movies);
+      .then(data => {
+        console.log("DATA", data)
 
-        console.log("---------------------");
-        console.log("PART 1...");
+        console.log("---------------------")
+        console.log("PART 1...")
 
-        console.log("A) Total movies:", movies.length);
+        // A. Number of movies
+        console.log("A) Total movies:", data.length);
 
-        console.log("B) Titles and Years:");
-        movies.forEach(m => {
-          console.log(`${m.title} (${m.year})`);
+        // B. Loop through movies and display title and year
+        console.log("B) Movies:");
+        data.forEach(m => {
+          console.log(`${m.Title} (${m.Year})`);
         });
 
-        const highestRated = movies.reduce((a, b) => a.rating > b.rating ? a : b);
-        console.log("C) Highest Rated Movie:", highestRated.title, `(${highestRated.rating}/10)`);
+        // C. Find highest rated
+        const highestRated = data.reduce((max, movie) => movie.Rating > max.Rating ? movie : max, data[0]);
+        console.log("C) Highest Rated Movie:");
+        console.log(`${highestRated.Title} (${highestRated.Rating}/10)`);
 
-        console.log("---------------------");
-        console.log("PART 2...");
+        console.log("---------------------")
+        console.log("PART 2...")
 
         const select = document.getElementById("movie-selector");
-        const titleSpan = document.getElementById("display-title");
-        const yearSpan = document.getElementById("display-year");
-        const ratingSpan = document.getElementById("display-rating");
-        const image = document.getElementById("display-image");
+        const displayTitle = document.getElementById("display-title");
+        const displayYear = document.getElementById("display-year");
+        const displayRating = document.getElementById("display-rating");
+        const displayImage = document.getElementById("display-image");
 
-        // Populate dropdown
-        movies.forEach(movie => {
+        // A. Populate the dropdown
+        data.forEach(movie => {
           const option = document.createElement("option");
-          option.value = movie.id;
-          option.text = movie.title;
+          option.value = movie.Id;
+          option.text = movie.Title;
           select.appendChild(option);
         });
 
+        // B. Define the update function
         function updateMovieInfo() {
           const selectedId = select.value;
-          const selectedMovie = movies.find(m => m.id === selectedId);
+          const selectedMovie = data.find(m => m.Id === selectedId);
 
           if (selectedMovie) {
-            titleSpan.textContent = selectedMovie.title;
-            yearSpan.textContent = selectedMovie.year;
-            ratingSpan.textContent = selectedMovie.rating;
-            image.src = selectedMovie.posterUrl;
-            image.alt = selectedMovie.title;
-          } else {
-            // Clear if invalid
-            titleSpan.textContent = "TODO";
-            yearSpan.textContent = "TODO";
-            ratingSpan.textContent = "X";
-            image.src = "";
-            image.alt = "Movie Poster";
+            displayTitle.innerText = selectedMovie.Title;
+            displayYear.innerText = selectedMovie.Year;
+            displayRating.innerText = `${selectedMovie.Rating} / 10`;
+            displayImage.src = selectedMovie["Thumbnail Image URL"];
+            displayImage.alt = selectedMovie.Title;
           }
         }
 
+        // C. Add event listener
         select.addEventListener("change", updateMovieInfo);
       })
-      .catch(error => {
-        console.error("Failed to fetch movie data:", error);
-      });
+      .catch(err => console.log("ERROR:", err));
   </script>
 </body>
 </html>
+
 
