@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Harry Potter Movies (JSON)</title>
 </head>
 <body>
-
   <h1>Harry Potter Movies (JSON)</h1>
   <a href="../index.html">Home</a>
 
@@ -22,7 +21,6 @@
 
   <h2>Part 2</h2>
   <p>Select a movie to view more info:</p>
-
   <select id="movie-selector">
     <option value="">-- Choose a Movie --</option>
   </select>
@@ -30,33 +28,31 @@
   <p>Title: <span id="display-title">TODO</span></p>
   <p>Year: <span id="display-year">TODO</span></p>
   <p>Rating: <span id="display-rating">X</span> / 10</p>
-  <p>Thumbnail Image:</p>
-  <img id="display-image" src="" alt="Movie Poster" style="width: 120px;">
+  <p>
+    Thumbnail Image:<br />
+    <img id="display-image" src="" alt="Movie Poster" style="width: 120px;" />
+  </p>
 
-  <script type="text/javascript">
+  <script src="https://cdn.jsdelivr.net/npm/d3-array@3"></script>
+  <script>
     const requestUrl = "https://raw.githubusercontent.com/prof-rossetti/internet-technologies/refs/heads/main/data/hp-movies.json";
 
     fetch(requestUrl)
       .then(response => response.json())
-      .then(movies => {
-        console.log("DATA:", movies);
+      .then(data => {
+        const movies = data; // <-- FIXED: assign to movies
 
-        // PART 1 ------------------------
         console.log("PART 1...");
+        console.log("A) Total movies:", movies.length);
 
-        console.log(`A) Total movies: ${movies.length}`);
-
-        console.log("B) Titles and Years:");
+        console.log("B) Titles and years:");
         movies.forEach(m => console.log(`${m.title} (${m.year})`));
 
-        const highestRated = movies.reduce((best, current) => current.rating > best.rating ? current : best);
-        console.log("C) Highest Rated:");
-        console.log(`${highestRated.title} (${highestRated.rating}/10)`);
+        const highestRated = movies.sort((a, b) => b.rating - a.rating)[0];
+        console.log("C) Highest rated:", `${highestRated.title} (${highestRated.rating}/10)`);
 
-        // PART 2 ------------------------
-        console.log("PART 2...");
-
-        const selector = document.getElementById("movie-selector");
+        // PART 2
+        const select = document.getElementById("movie-selector");
         const displayTitle = document.getElementById("display-title");
         const displayYear = document.getElementById("display-year");
         const displayRating = document.getElementById("display-rating");
@@ -66,27 +62,26 @@
         movies.forEach(movie => {
           const option = document.createElement("option");
           option.value = movie.id;
-          option.text = movie.title;
-          selector.appendChild(option);
+          option.textContent = movie.title;
+          select.appendChild(option);
         });
 
-        // Update movie info on page
         function updateMovieInfo() {
-          const selectedId = selector.value;
-          const selectedMovie = movies.find(m => m.id === selectedId);
-          if (selectedMovie) {
-            displayTitle.innerText = selectedMovie.title;
-            displayYear.innerText = selectedMovie.year;
-            displayRating.innerText = selectedMovie.rating;
-            displayImage.src = selectedMovie.posterUrl;
-            displayImage.alt = selectedMovie.title;
+          const selectedId = select.value;
+          const movie = movies.find(m => m.id === selectedId);
+          if (movie) {
+            displayTitle.textContent = movie.title;
+            displayYear.textContent = movie.year;
+            displayRating.textContent = movie.rating;
+            displayImage.src = movie.posterUrl;
+            displayImage.alt = movie.title;
           }
         }
 
-        selector.addEventListener("change", updateMovieInfo);
+        select.addEventListener("change", updateMovieInfo);
       })
-      .catch(err => console.error("Failed to fetch data", err));
+      .catch(error => console.error("Error loading movies:", error));
   </script>
-
 </body>
 </html>
+
