@@ -64,6 +64,29 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+// A. Display download date
+console.log("A:", gradebook.downloadDate);
+
+// B. Number of students
+console.log("B:", gradebook.students.length);
+
+// C. Loop through each student and display name + grade
+console.log("C:");
+gradebook.students.forEach(student => {
+    console.log(student.name + " - " + student.finalGrade);
+});
+
+// D. Map grades into array
+var grades = gradebook.students.map(student => student.finalGrade);
+console.log("D:", grades);
+
+// E. Average grade
+var avg = d3.mean(grades);
+console.log("E: Average =", avg.toFixed(2));
+
+// F. Median grade
+var median = d3.median(grades);
+console.log("F: Median =", median.toFixed(2));
 
 
 
@@ -72,6 +95,35 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+        var table = document.getElementById("display-gradebook");
+
+// Add header row
+var headerRow = document.createElement("tr");
+["Student ID", "Student Name", "Final Grade"].forEach(headerText => {
+    var th = document.createElement("th");
+    th.innerText = headerText;
+    headerRow.appendChild(th);
+});
+table.appendChild(headerRow);
+
+// Add student rows
+gradebook.students.forEach(student => {
+    var row = document.createElement("tr");
+
+    var cellId = document.createElement("td");
+    cellId.innerText = student.studentId;
+    row.appendChild(cellId);
+
+    var cellName = document.createElement("td");
+    cellName.innerText = student.name;
+    row.appendChild(cellName);
+
+    var cellGrade = document.createElement("td");
+    cellGrade.innerText = student.finalGrade.toFixed(1);
+    row.appendChild(cellGrade);
+
+    table.appendChild(row);
+});
 
 
 
