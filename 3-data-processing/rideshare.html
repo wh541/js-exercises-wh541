@@ -87,6 +87,51 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+// A) Driver's first name
+console.log("A)");
+console.log(trip.driver.first_name);
+
+var d = trip.driver;
+console.log("Your driver is", d.first_name);
+
+// B) License plate number
+console.log("B)");
+console.log("License Plate:", trip.vehicle.licensePlate);
+
+// C) Number of stops
+console.log("C)");
+console.log("NUMBER OF STOPS:", trip.stops.length);
+
+// D) First stop destination
+console.log("D)");
+console.log("FIRST DESTINATION:", trip.stops[0].destination);
+
+var stops = trip.stops;
+var firstStop = stops[0];
+console.log("FIRST DESTINATION (again):", firstStop.destination);
+
+// E) Last stop destination (dynamic)
+console.log("E)");
+var lastStop = stops[stops.length - 1];
+console.log("LAST DESTINATION:", lastStop.destination);
+
+// F) Passenger names
+console.log("F)");
+stops.forEach(function(stop){
+    console.log(stop.passenger);
+});
+
+// G) Fares
+console.log("G)");
+var fares = stops.map(function(stop){
+    return stop.fare;
+});
+console.log("FARES:", fares);
+
+// H) Total fare
+console.log("H)");
+var totalFare = d3.sum(fares);
+console.log("TOTAL FARE: $" + totalFare.toFixed(2));
 
 
 
@@ -94,6 +139,20 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+// A. Display driver's name
+document.getElementById("display-driver").innerText = trip.driver.first_name;
+
+// B. Display vehicle info
+document.getElementById("display-vehicle").innerText =
+  `${trip.vehicle.make} ${trip.vehicle.model} (${trip.vehicle.licensePlate})`;
+
+// C. Display each passenger name in a list
+var passengerList = document.getElementById("display-passengers");
+trip.stops.forEach(stop => {
+    var li = document.createElement("li");
+    li.innerText = stop.passenger;
+    passengerList.appendChild(li);
+});
 
 
 
