@@ -85,6 +85,19 @@
 
                 console.log("---------------------")
                 console.log("PART 1...")
+// A. Number of movies
+console.log("A) Total movies:", data.length);
+
+// B. Loop through movies and display title and year
+console.log("B) Movies:");
+data.forEach(m => {
+  console.log(`${m.title} (${m.year})`);
+});
+
+// C. Find the highest rated movie
+const highestRated = data.sort((a, b) => b.rating - a.rating)[0];
+console.log("C) Highest Rated:");
+console.log(`${highestRated.title} (${highestRated.rating}/10)`);
 
 
 
@@ -95,6 +108,39 @@
                 console.log("PART 2...")
 
 
+                const select = document.getElementById("movie-selector");
+const displayTitle = document.getElementById("display-title");
+const displayYear = document.getElementById("display-year");
+const displayRating = document.getElementById("display-rating");
+const displayImage = document.getElementById("display-image");
+
+// Populate dropdown menu
+movies.forEach(movie => {
+  const option = document.createElement("option");
+  option.value = movie.id;
+  option.text = movie.title;
+  select.appendChild(option);
+});
+
+// Function to update movie info on page
+function updateMovieInfo() {
+  const selectedId = select.value;
+  const selectedMovie = movies.find(m => m.id === selectedId);
+
+  if (selectedMovie) {
+    displayTitle.innerText = selectedMovie.title;
+    displayYear.innerText = selectedMovie.year;
+    displayRating.innerText = `${selectedMovie.rating} / 10`;
+    displayImage.src = selectedMovie.posterUrl;
+    displayImage.alt = selectedMovie.title;
+  }
+}
+
+// Trigger update on dropdown change
+select.addEventListener("change", updateMovieInfo);
+
+// Initial display
+updateMovieInfo();
 
 
 
