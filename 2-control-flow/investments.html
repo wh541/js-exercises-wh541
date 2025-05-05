@@ -45,6 +45,17 @@
         The interface should allow the user to input values for the initial balance, desired ending balance, mean, and standard deviation.
         The interface should include a button, that when clicked should perform the simulation and
         and display the resulting number of years and actual ending balance on the page.
+
+        <p>
+            <label>Initial Balance: <input type="number" id="initial-balance" value="150000" /></label><br />
+            <label>Target Balance: <input type="number" id="target-balance" value="1000000" /></label><br />
+            <label>Mean Rate (%): <input type="number" id="mean-rate" value="8" step="0.01" /></label><br />
+            <label>Standard Deviation (%): <input type="number" id="std-dev" value="15" step="0.01" /></label><br />
+            <button id="simulate">Run Simulation</button>
+          </p>
+          
+          <pre id="simulation-output"></pre>
+          
     </p>
 
 
@@ -97,6 +108,29 @@
 
         console.log("---------------------")
         console.log("PART 3...")
+        
+        document.getElementById("simulate").addEventListener("click", function () {
+    const initial = parseFloat(document.getElementById("initial-balance").value);
+    const target = parseFloat(document.getElementById("target-balance").value);
+    const mean = parseFloat(document.getElementById("mean-rate").value) / 100;
+    const stddev = parseFloat(document.getElementById("std-dev").value) / 100;
+    const output = document.getElementById("simulation-output");
+
+    let balance = initial;
+    let year = 0;
+    const rateGenerator = d3.randomNormal(mean, stddev);
+    let result = `Year\tRate\t\tBalance\n`;
+
+    while (balance < target) {
+        const rate = rateGenerator();
+        balance *= 1 + rate;
+        year++;
+        result += `${year}\t${(rate * 100).toFixed(2)}%\t$${balance.toFixed(2)}\n`;
+    }
+
+    result += `\nDONE!\nYears: ${year}\nFinal Balance: $${balance.toFixed(2)}`;
+    output.textContent = result;
+});
 
 
 
